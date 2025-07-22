@@ -1,5 +1,6 @@
 package com.avm.controller;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -27,8 +28,17 @@ public class ValidLogin extends HttpServlet {
 		rm.setPassword(password);
 		
 		UserDAOInterface l = new AVMImplementation();
-		System.out.println(l.validateLogin(rm));
+		String status = l.validateLogin(rm);
+		System.out.println(status);
 		
+		if(status.contains("Success")) {
+			RequestDispatcher rd = request.getRequestDispatcher("Login-HomePage.html");
+			rd.forward(request, response);
+		}
+		else {
+			RequestDispatcher rd = request.getRequestDispatcher("LogIn.html");
+			rd.forward(request, response);
+		}
 	}
 
 }

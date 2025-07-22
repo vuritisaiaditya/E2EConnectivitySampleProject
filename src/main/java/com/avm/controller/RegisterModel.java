@@ -8,6 +8,7 @@ public class RegisterModel {
 	private String email;
 	private String gender;
 	private String phonenumber;
+	private String address;
 	
 	
 	public String getEmail() {
@@ -45,5 +46,12 @@ public class RegisterModel {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
 	
 }

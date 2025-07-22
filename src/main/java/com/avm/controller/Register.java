@@ -1,5 +1,6 @@
 package com.avm.controller;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -24,6 +25,7 @@ public class Register extends HttpServlet {
 		String email = request.getParameter("email");
 		String phonenumber = request.getParameter("phonenumber");
 		String gender = request.getParameter("gender");
+		String address = request.getParameter("address");
 		
 		RegisterModel rm = new RegisterModel();
 		rm.setUsername(username);
@@ -31,9 +33,20 @@ public class Register extends HttpServlet {
 		rm.setPhonenumber(phonenumber);
 		rm.setGender(gender);
 		rm.setEmail(email);
+		rm.setAddress(address);
 		
 		UserDAOInterface r = new AVMImplementation();
-		System.out.println(r.userRegisteration(rm));
+		String status = r.userRegisteration(rm);
+		System.out.println(status);
+		
+		if(status.contains("row(s) inserted")) {
+			RequestDispatcher rd = request.getRequestDispatcher("LogIn.html");
+			rd.forward(request, response);
+		}
+		else {
+			RequestDispatcher rd = request.getRequestDispatcher("Register.html");
+			rd.forward(request, response);
+		}
 		
 	}
 
